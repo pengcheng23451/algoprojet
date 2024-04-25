@@ -8,7 +8,7 @@ client.connect("srv-lora.isep.fr")
 
 
 screen = turtle.Screen()
-screen.setup(800, 600)
+screen.setup(500, 500)
 screen.title("Positions des objets")
 
 pen = turtle.Turtle()
