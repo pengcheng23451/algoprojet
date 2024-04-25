@@ -29,13 +29,13 @@ void setup() {
 
 void loop() {
   // Simulation du déplacement aléatoire des animaux
-  String myList[] = {"chien", "chat", "chevaux"};
+  String list[] = {"chien", "chat", "chevaux"};
   int animalPositionX = random(-200, 200);
   int animalPositionY = random(-200, 200);
-  int randomIndex = random(0, sizeof(myList)/sizeof(myList[0]));
+  int randindex = random(0, sizeof(list)/sizeof(myList[0]));
 
   // Construire un message
-  String message = "Animal position: X=" + String(animalPositionX) + "; Y=" + String(animalPositionY);
+  String message = list[randindex] +":" + String(animalPositionX) +":"+ String(animalPositionY);
 
   // Envoyer un message
   modem.beginPacket();

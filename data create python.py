@@ -24,7 +24,7 @@ colliers = ["Marguerite", "Medor", "Felix"]
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "fpc")
 client.connect("srv-lora.isep.fr")
-#client.connect("broker.hivemq.com")
+
 
 while True:
     for collier in colliers:
