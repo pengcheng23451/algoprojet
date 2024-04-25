@@ -3,8 +3,8 @@
 LoRaModem modem;
 
 // Initialisation du module LoRa
-String appEui = "a8610a34353b7210";
-String appKey = "07070707070707070707070707070707";
+String appEui = "a8610a3435315d10";
+String appKey = "01010101010101010101010101010101";
 
 void setup() {
   Serial.begin(9600);
@@ -32,7 +32,7 @@ void loop() {
   String list[] = {"chien", "chat", "chevaux"};
   int animalPositionX = random(-200, 200);
   int animalPositionY = random(-200, 200);
-  int randindex = random(0, sizeof(list)/sizeof(myList[0]));
+  int randindex = random(0, sizeof(list)/sizeof(list[0]));
 
   // Construire un message
   String message = list[randindex] +":" + String(animalPositionX) +":"+ String(animalPositionY);
@@ -45,5 +45,5 @@ void loop() {
   Serial.println("Message: " + message);
 
   // 等待一段时间再发送下一条消息
-  delay(15000); // 每 15 秒发送一次消息
+  delay(10000); // 每 10 秒发送一次消息
 }

@@ -2,59 +2,46 @@ import paho.mqtt.client as mqtt
 import turtle
 import json
 
-# MQTT Broker信息
-broker_address = "broker.hivemq.com"
-topic = "fpc"
-
-# 创建MQTT客户端
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "fpc")
-
-# 连接到MQTT Broker
 client.connect("srv-lora.isep.fr")
+#client.connect("broker.hivemq.com")
 
-# 设置Turtle窗口
+
 screen = turtle.Screen()
-screen.setup(width=600, height=600)
-screen.title("Tableau de Bord Animal")
-screen.bgcolor("lightgreen")
+screen.setup(800, 600)
+screen.title("Positions des objets")
 
 pen = turtle.Turtle()
-pen.penup() 
-
-#initialisation de couleur
-couleur = "red"
+pen.penup()
 
 
-# 回调函数，用于处理接收到的MQTT消息
+
 def on_message_callback(client_inst, userdata, message):
-    valeur = message.payload.decode("ansi")
-    print(message.topic + " " + valeur)
-
     try:
-        nomxylabel = valeur.split(":")
-        pen.pendown()
-        pen.goto(int(nomxylabel[2]), int(nomxylabel[3]))
-        pen.dot(5,couleur)
-        pen.penup()
-        print("nom :", nomxylabel[1])
-        print("position:",nomxylabel[2],nomxylabel[3])
-
+        valeur = message.payload.decode("ansi")
+        print(message.topic + " " + valeur)
+        valeur_json = json.loads(valeur)
+        valeur_lora = valeur_json["object"]["message"]
+        liste = valeur_lora.split(":")
+        nom = liste[0]
+        position = (int(liste[1]), int(liste[2]))
+        dessiner_point(position)
+        print("Nom:", nom)
+        print("Position:", position)
     except Exception as e:
-            print(f"Erreur message - {e}")
+        print("Erreur lors de la lecture du message JSON:", e)
 
 
 
-# 设置MQTT客户端的消息到达回调函数
+def dessiner_point(position, couleur="red"):
+    pen.pendown()
+    pen.goto(position)
+    pen.dot(5, couleur)
+    pen.penup()
+
 client.on_message = on_message_callback
 
-# 订阅MQTT主题
 client.subscribe("#")
-
-# 开启MQTT客户端的消息循环
 client.loop_start()
-
-
-# 设置Turtle绘图速度
-turtle.speed(2)
 
 turtle.mainloop()
