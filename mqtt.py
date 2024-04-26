@@ -22,9 +22,9 @@ def on_message_callback(client_inst, userdata, message):
         print(message.topic + " " + valeur)
         valeur_json = json.loads(valeur)
         valeur_lora = valeur_json["object"]["message"]
-        liste = valeur_lora.split(":")
-        nom_animal = liste[0]
-        position = (int(liste[1]), int(liste[2]))
+        liste_recu = valeur_lora.split(":")
+        position = (int(liste_recu[1]), int(liste_recu[2]))
+        nom_animal = liste_recu[0]
         dessiner_point(position)
         print("Nom:", nom_animal)
         print("Position:", position)
