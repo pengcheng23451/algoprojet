@@ -23,10 +23,10 @@ def on_message_callback(client_inst, userdata, message):
         valeur_json = json.loads(valeur)
         valeur_lora = valeur_json["object"]["message"]
         liste = valeur_lora.split(":")
-        nom = liste[0]
+        nom_animal = liste[0]
         position = (int(liste[1]), int(liste[2]))
         dessiner_point(position)
-        print("Nom:", nom)
+        print("Nom:", nom_animal)
         print("Position:", position)
     except Exception as e:
         print("Erreur du message:", e)
