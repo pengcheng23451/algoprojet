@@ -8,7 +8,8 @@ client.connect("srv-lora.isep.fr")
 
 screen = turtle.Screen()
 screen.setup(500, 500)
-screen.title("Positions des objets")
+screen.title("Tableau de Bord Animal")
+screen.bgcolor("lightgreen")
 
 pen = turtle.Turtle()
 pen.penup()
@@ -28,11 +29,11 @@ def on_message_callback(client_inst, userdata, message):
         print("Nom:", nom)
         print("Position:", position)
     except Exception as e:
-        print("Erreur lors de la lecture du message JSON:", e)
+        print("Erreur du message:", e)
 
 
 
-def dessiner_point(position, couleur="red"):
+def dessiner_point(position, couleur="black"):
     pen.pendown()
     pen.goto(position)
     pen.dot(5, couleur)
